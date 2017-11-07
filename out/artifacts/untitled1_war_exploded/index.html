@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Insert title here</title>
+</head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="release/js/libs/json2.js"></script>
+<script>
+    $(document).ready(function() {
+
+    });
+</script>
+<body>
+
+    <input type="text" name="searchQuery">
+    <button id="search" type="button">Rechercher</button>
+
+    <div id="list_films"></div>
+
+    <script>
+        $("#search").click(function() {
+            var searchQuery = $("input[name=searchQuery]").val();
+            var request = ({"titleSearch":searchQuery});
+            var jsonobj = JSON.stringify(request);
+            $.ajax({
+                data: {para:jsonobj},
+                dataType: 'json',
+                url: './myservlet',
+                type: 'POST',
+                success: function(jsonArray) {
+                    $('ul').remove();
+                    jsonArray.forEach(function(film) {
+                        $('#list_films').prepend(
+                            "<ul>"+
+                                "<li>Code : " + film.code + "</li>"+
+                                "<li>Titre : " + film.title + "</li>"+
+                                "<li> Année : " + film.productionYear + "</li>"+
+                                "<li>"+
+                                    "<img src=\"" + film.posters + "\" alt=\"" + film.title + "\" style=\"width:128px;height:148px;\">"+
+                                "</li>"+
+                                "<li> Déscription : " + film.synopsisShort + "</li>"+
+                            "<p>--------------------------------------------------------------------------------</p>"+
+                            "</ul>");
+                    });
+                },
+                error: function(xhr, err) {
+                    alert('Ajax readyState: ' + xhr.readyState + '\nstatus: ' + xhr.status + ' ' + err);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
