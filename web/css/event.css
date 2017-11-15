@@ -1,0 +1,47 @@
+/*#available_movies_list li {
+    display:inline;
+}*/
+
+#create_event {
+    width: 900px;
+}
+
+#available_movies_list {
+    margin: 0;
+    padding: 0;
+    white-space: nowrap;
+    overflow-x: auto;
+    /*background-color: #ddd;*/
+}
+
+#available_movies_list li {
+    display: inline;
+    /*width: 150px;
+    height: 150px;*/
+}
+
+#available_movies {
+    text-align:center;
+}
+
+/* Image border */
+
+/*.border::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: inset 0 0 0 0 rgba(255,255,255,.5);
+    transition: box-shadow .1s ease;
+}
+.border:hover::after {
+    box-shadow: inset 0 0 0 10px rgba(255,255,255,.5);
+}*/
+
+.border {
+    width:128px;
+    height:148px;
+    margin-right:10px;
+}

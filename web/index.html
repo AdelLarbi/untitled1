@@ -13,12 +13,18 @@
 </script>
 <body>
 
+    <button id="event" type="button">Aller voir un film !</button>
+    <br><br>
     <input type="text" name="searchQuery">
     <button id="search" type="button">Rechercher</button>
 
     <div id="list_films"></div>
 
     <script>
+        $("#event").click(function() {
+            window.location.href='html/event.html';
+        });
+
         $("#search").click(function() {
             var searchQuery = $("input[name=searchQuery]").val();
             var request = ({"titleSearch":searchQuery});

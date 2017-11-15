@@ -42,15 +42,6 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/allocine-api-1.6.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
           <root url="jar://$USER_HOME$/Downloads/api-common-2.1.jar!/" />
         </CLASSES>
         <JAVADOC />
@@ -448,6 +439,24 @@
       <library>
         <CLASSES>
           <root url="jar://$USER_HOME$/Downloads/tutorial/jars/slf4j-log4j12-1.6.6.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Programing/javax.ejb.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Programing/api-allocine-cinox-15112017.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

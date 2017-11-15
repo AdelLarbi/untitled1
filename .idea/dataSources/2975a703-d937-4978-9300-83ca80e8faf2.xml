@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="mydb@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.4">
+    <root id="1"/>
+    <schema id="2" parent="1" name="mydb">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="bdd_mondiale"/>
+    <schema id="4" parent="1" name="information_schema"/>
+    <schema id="5" parent="1" name="mysql"/>
+    <schema id="6" parent="1" name="performance_schema"/>
+    <schema id="7" parent="1" name="test"/>
+    <schema id="8" parent="1" name="tutoServer"/>
+    <table id="9" parent="2" name="MovieInfos"/>
+    <table id="10" parent="2" name="User"/>
+    <column id="11" parent="9" name="code">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="12" parent="9" name="poster">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="13" parent="9" name="productionYear">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="14" parent="9" name="synopsisShort">
+      <Position>4</Position>
+      <DataType>longtext|0</DataType>
+    </column>
+    <column id="15" parent="9" name="title">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <index id="16" parent="9" name="code">
+      <ColNames>code</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="17" parent="9" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>code</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="18" parent="9" name="code">
+      <ColNames>code</ColNames>
+      <UnderlyingIndexName>code</UnderlyingIndexName>
+    </key>
+    <column id="19" parent="10" name="IdUser">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="20" parent="10" name="nom">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="21" parent="10" name="prenom">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <index id="22" parent="10" name="IdUser">
+      <ColNames>IdUser</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="23" parent="10" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>IdUser</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="24" parent="10" name="IdUser">
+      <ColNames>IdUser</ColNames>
+      <UnderlyingIndexName>IdUser</UnderlyingIndexName>
+    </key>
+  </database-model>
+</dataSource>

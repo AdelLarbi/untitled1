@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aller voir un film !</title>
+
+    <link rel="stylesheet" href="../css/event.css">
+</head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="release/js/libs/json2.js"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $("#movieTitle").css("visibility", "hidden");
+        $("#found_showtimeList").css("visibility", "hidden");
+        $("#not_found_showtimeList").css("visibility", "hidden");
+
+        $.ajax({
+            url: '../myServletMovieShowTime',
+            type: 'POST',
+            success: function(jsonArray) {
+                $('#available_movies_list').empty();
+                jsonArray.forEach(function(film) {
+                    if (film) {
+                        $('#available_movies_list').append(
+                            '<li>' +
+                            '<a href="#" onclick="setTitle(\'' + film.title + '\')">' +
+                            '<img class="border" src="' + film.href + '" alt="' + film.title + '">'+
+                            '</a>' +
+                            '</li>');
+                    } else {
+                        alert('Aucun film trouvé !');
+                    }
+                });
+            },
+            error: function(xhr, err) {
+                alert('Ajax readyState: ' + xhr.readyState + '\nstatus: ' + xhr.status + ' ' + err);
+            }
+        });
+    });
+
+    function setTitle(title) {
+        $("#movieTitle").text(title).css("visibility", "visible");
+    }
+
+</script>
+<body>
+
+<div id="create_event">
+    <div id="available_movies">
+        <ul id="available_movies_list"></ul>
+        <p id="movieTitle">hello</p>
+        <br>
+        <input type="text" value="Le code postal de la ville" name="postalCode" id="postalCode"
+               onblur="if (this.value === '') {this.value = 'Le code postal de la ville';}"
+               onfocus="if (this.value === 'Le code postal de la ville') {this.value = '';}" />
+        <button id="showTimeList" type="button">Ok</button>
+
+        <!-- <form>
+            Film : <output name="filme">hello</output><br>
+            Code postal : <input type="text" name="postalCode"><br>
+            Salle :
+            <SELECT name="cinema" size="1">
+                <OPTION>salle 1
+                <OPTION>salle 2
+            </SELECT><br>
+            Date :
+            <SELECT name="date" size="1">
+                <OPTION>date 1
+                <OPTION>date 2
+                <OPTION>date 3
+            </SELECT><br>
+            Horaire :
+            <SELECT name="time" size="1">
+                <OPTION>h1
+                <OPTION>h2
+                <OPTION>h3
+                <OPTION>h4
+            </SELECT>
+        </form>
+        -->
+    </div>
+    <div id="found_showtimeList">
+        <p>Found</p>
+    </div>
+    <div id="not_found_showtimeList">
+        <p>Not Found</p>
+    </div>
+</div>
+<div id="show_events"></div>
+
+<script>
+    $('#showTimeList').click(function() {
+        var title = $("#movieTitle").text();
+        var code = $("input[name=postalCode]").val();
+        const pattern = /^\d{5}(?:\d{2})?$/;
+
+        if (title === '') {
+            alert("Choisir un film");
+
+        } else if (!pattern.test(code)) {
+            alert(code + " n'est pas valid !");
+
+        } else {
+            //TODO call ajax servlet to find times
+            if () {
+                $("#found_showtimeList").css("visibility", "visible");
+            } else {
+                $("#not_found_showtimeList").css("visibility", "visible");
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
