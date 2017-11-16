@@ -21,12 +21,16 @@
             type: 'POST',
             success: function(jsonArray) {
                 $('#available_movies_list').empty();
+
                 jsonArray.forEach(function(film) {
+
                     if (film) {
+                        var argFilm = film.title.replace("'", "\\'");
+
                         $('#available_movies_list').append(
                             '<li>' +
-                            '<a href="#" onclick="setTitle(\'' + film.title + '\')">' +
-                            '<img class="border" src="' + film.href + '" alt="' + film.title + '">'+
+                            '<a href="#" onclick="setTitle(\'' + argFilm + '\')">' +
+                            '<img class="border" src="' + film.href + '" alt="' + argFilm + '">'+
                             '</a>' +
                             '</li>');
                     } else {
@@ -57,29 +61,28 @@
                onfocus="if (this.value === 'Le code postal de la ville') {this.value = '';}" />
         <button id="showTimeList" type="button">Ok</button>
 
-        <!-- <form>
-            Film : <output name="filme">hello</output><br>
-            Code postal : <input type="text" name="postalCode"><br>
+        <br><br>
+        <form id="times_form">
             Salle :
-            <SELECT name="cinema" size="1">
+            <SELECT id="names" name="cinemas" size="1">
                 <OPTION>salle 1
                 <OPTION>salle 2
             </SELECT><br>
             Date :
-            <SELECT name="date" size="1">
+            <SELECT id="dates" name="dates" size="1">
                 <OPTION>date 1
                 <OPTION>date 2
                 <OPTION>date 3
             </SELECT><br>
             Horaire :
-            <SELECT name="time" size="1">
+            <SELECT id="times" name="times" size="1">
                 <OPTION>h1
                 <OPTION>h2
                 <OPTION>h3
                 <OPTION>h4
             </SELECT>
         </form>
-        -->
+
     </div>
     <div id="found_showtimeList">
         <p>Found</p>
@@ -124,10 +127,17 @@
             url: '../myServletShowTime',
             type: 'POST',
             success: function(jsonArray) {
+
                 if (jsonArray && jsonArray.length > 0) {
-                    alert('OK');
+
+                    fillForm(jsonArray);
+
+                    $("#not_found_showtimeList").css("visibility", "hidden");
+                    $("#found_showtimeList").css("visibility", "visible");
+
                 } else {
-                    alert('!OK');
+                    $("#found_showtimeList").css("visibility", "hidden");
+                    $("#not_found_showtimeList").css("visibility", "visible");
                 }
 
                 /*$('ul').remove();
@@ -150,6 +160,102 @@
             }
         });
     }
+
+    function fillForm(jsonArray) {
+
+        /*
+        <form id="times_form">
+            Salle :
+            <SELECT name="cinema" size="1">
+                <OPTION>salle 1
+                <OPTION>salle 2
+            </SELECT><br>
+            Date :
+            <SELECT name="date" size="1">
+                <OPTION>date 1
+                <OPTION>date 2
+                <OPTION>date 3
+            </SELECT><br>
+            Horaire :
+            <SELECT name="time" size="1">
+                <OPTION>h1
+                <OPTION>h2
+                <OPTION>h3
+                <OPTION>h4
+            </SELECT>
+        </form>
+        */
+
+        //$('#names').empty().append('<option value="">---Select City---</option>');
+        $('#names').empty();
+        $('#dates').empty();
+        $('#times').empty();
+
+        jsonArray.forEach(function(cinema) {
+
+            var name = cinema.name;
+            //var adress = cinema.adress;
+            //var postalCode = cinema.postalCode;
+            //var city = cinema.city;
+
+            $('#names').append('<option value="">' + name + '</option>');
+
+            if (name === 'Méga CGR Evry 2') {
+                var datesTimes = cinema.datesTimes;
+
+                datesTimes.forEach(function(dateTime) {
+                    var date = dateTime.date;
+                    $('#dates').append('<option value="">' + date + '</option>');
+
+                    if (date === '2017-11-16') {
+                        var timesOfDate = dateTime.time;
+
+                        timesOfDate.forEach(function(times) {
+                            $('#times').append('<option value="">' + times + '</option>');
+                        });
+                    }
+                });
+            }
+        });
+    }
+</script>
+
+<script>
+    var rdvName = 'Hello world';
+    var rdvDate = '2000-11-12';
+    var rdvTime = '12:00';
+
+    var request = ({"rdvName":rdvName, "rdvDate":rdvDate, "rdvTime":rdvTime});
+    var jsonobj = JSON.stringify(request);
+
+    $.ajax({
+        data: {para:jsonobj},
+        dataType: 'json',
+        url: '../myServletMovieShowTime',
+        type: 'POST',
+        success: function(jsonArray) {
+            $('#available_movies_list').empty();
+
+            jsonArray.forEach(function(film) {
+
+                if (film) {
+                    var argFilm = film.title.replace("'", "\\'");
+
+                    $('#available_movies_list').append(
+                        '<li>' +
+                        '<a href="#" onclick="setTitle(\'' + argFilm + '\')">' +
+                        '<img class="border" src="' + film.href + '" alt="' + argFilm + '">'+
+                        '</a>' +
+                        '</li>');
+                } else {
+                    alert('Aucun film trouvé !');
+                }
+            });
+        },
+        error: function(xhr, err) {
+            alert('Ajax readyState: ' + xhr.readyState + '\nstatus: ' + xhr.status + ' ' + err);
+        }
+    });
 </script>
 </body>
 </html>

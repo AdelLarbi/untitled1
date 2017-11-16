@@ -1,7 +1,6 @@
 package fr.umpc.test;
 
 import com.moviejukebox.allocine.AllocineException;
-import dao.MyMovieInfos;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -17,7 +16,6 @@ import java.util.List;
 
 import static fr.umpc.test.main.beforeClass;
 import static fr.umpc.test.main.search;
-import static fr.umpc.test.main.testGetMovieInfos;
 
 @WebServlet(name = "ServletTest", urlPatterns = {"/myservlet"})
 public class ServletTest extends HttpServlet {
