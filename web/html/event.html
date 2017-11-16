@@ -104,14 +104,52 @@
 
         } else {
             //TODO call ajax servlet to find times
-            if () {
+            getShowTime(title, code);
+
+            /*if () {
                 $("#found_showtimeList").css("visibility", "visible");
             } else {
                 $("#not_found_showtimeList").css("visibility", "visible");
-            }
+            }*/
         }
     });
 </script>
+<script>
+    function getShowTime(title, code) {
+        var request = ({"title":title, "code":code});
+        var jsonobj = JSON.stringify(request);
+        $.ajax({
+            data: {para:jsonobj},
+            dataType: 'json',
+            url: '../myServletShowTime',
+            type: 'POST',
+            success: function(jsonArray) {
+                if (jsonArray && jsonArray.length > 0) {
+                    alert('OK');
+                } else {
+                    alert('!OK');
+                }
 
+                /*$('ul').remove();
+                jsonArray.forEach(function(film) {
+                    $('#list_films').prepend(
+                        "<ul>"+
+                        "<li>Code : " + film.code + "</li>"+
+                        "<li>Titre : " + film.title + "</li>"+
+                        "<li> Année : " + film.productionYear + "</li>"+
+                        "<li>"+
+                        "<img src=\"" + film.posters + "\" alt=\"" + film.title + "\" style=\"width:128px;height:148px;\">"+
+                        "</li>"+
+                        "<li> Déscription : " + film.synopsisShort + "</li>"+
+                        "<p>--------------------------------------------------------------------------------</p>"+
+                        "</ul>");
+                });*/
+            },
+            error: function(xhr, err) {
+                alert('Ajax readyState: ' + xhr.readyState + '\nstatus: ' + xhr.status + ' ' + err);
+            }
+        });
+    }
+</script>
 </body>
 </html>
